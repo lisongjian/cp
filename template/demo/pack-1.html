@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cmn-Hans">
+    <meta charset="UTF-8">
+    <title>钱鹿锁屏--注册立即送钱</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- 360用GCF渲染 -->
+    <meta name="renderer" content="webkit">
+    <!-- 优先使用最新IE内核,chrome内核 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <!-- 禁止百度转码 -->
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="stylesheet" href="/static/w/assets/global.css"/>
+    <style>
+
+        html, body {
+            font-size: 62.5%;
+            height: 100%;
+            width: 100%;
+            background-color: #ececfb;
+            font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, STHeiTi, sans-serif
+        }
+
+        body {
+            font-size: 1.6rem;
+            -webkit-animation: bg 500ms linear forwards
+        }
+
+        .share-box {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            background-color: black;
+            opacity: .95
+        }
+
+        .share-slogen {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+            display: block;
+            margin: 12px auto
+        }
+
+        .share-slogen img {
+            width: 203px;
+            display: block;
+            margin: 240px auto
+        }
+
+        .share-bg {
+            position: fixed;
+            z-index: 2;
+            top: 0;
+            left: 0;
+            width: 100%;
+            text-align: right
+        }
+
+        .share-bg img {
+            margin: 8px;
+            width: 98px;
+            height: 219px
+        }
+
+        @media screen and (max-height: 480px) {
+            body {
+                height: 480px
+            }
+
+        }
+
+        @media screen and (orientation: landscape) {
+        }
+
+        @-webkit-keyframes show {
+            from {
+                opacity: 0;
+                -webkit-transform: scale(0.1, .1)
+            }
+            to {
+                opacity: 1;
+                -webkit-transform: scale(1, 1)
+            }
+        }
+
+        @-webkit-keyframes out {
+            from {
+                opacity: 0;
+                -webkit-transform: translate3d(0, -8px, 0)
+            }
+            to {
+                opacity: 1;
+                -webkit-transform: translate3d(0px, 0, 0)
+            }
+        }
+
+        @-webkit-keyframes rotate {
+            0% {
+                -webkit-transform: rotateZ(0deg)
+            }
+            25% {
+                -webkit-transform: rotateZ(6deg)
+            }
+            50% {
+                -webkit-transform: rotateZ(0deg)
+            }
+            75% {
+                -webkit-transform: rotateZ(-6deg)
+            }
+            100% {
+                -webkit-transform: rotateZ(0deg)
+            }
+        }
+
+        @-webkit-keyframes move {
+            0% {
+                -webkit-transform: translate3d(0px, 0, 0)
+            }
+            25% {
+                -webkit-transform: translate3d(10px, 0, 0)
+            }
+            50% {
+                -webkit-transform: translate3d(0px, 0, 0)
+            }
+            75% {
+                -webkit-transform: translate3d(-10px, 0, 0)
+            }
+            100% {
+                -webkit-transform: translate3d(0px, 0, 0)
+            }
+        }
+
+        @-webkit-keyframes big {
+            0% {
+                opacity: 0;
+                -webkit-transform: scale(0.2, .2)
+            }
+            25% {
+                -webkit-transform: scale(1, 1)
+            }
+            50% {
+                -webkit-transform: scale(1.3, 1.3)
+            }
+            75% {
+                -webkit-transform: scale(1, 1)
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: scale(1, 1)
+            }
+        }
+
+        @-webkit-keyframes bg {
+            from {
+                -webkit-transform: scale(1.5, 1.5)
+            }
+            to {
+                -webkit-transform: scale(1, 1)
+            }
+        }
+
+        .ui-page { display: none; height: 100%; overflow: hidden; }
+        .ui-page-active { display: block; }
+
+        .redpack {
+            width: 275px;
+            height: 329px;
+            border-radius: 10px;
+            background: url("/static/w/images/share/pic_redbag_big.fw.png") no-repeat 0 0 #f45540;
+            background-size: 275px 329px;
+        }
+        .btn-pack {
+            padding: .8rem 5rem;
+            border-radius: 30px;
+            background-color: #ffd71c;
+            color: #f45540;
+            font-weight: 700;
+            border-bottom: 1px solid #ffeb0e;
+            -webkit-box-shadow:0 3px 1px #f2bc00;
+                    box-shadow:0 3px 1px #f2bc00;
+        }
+        .fc-gray { color: #757584; }
+        .g4 { color: #444; }
+        .fc-red { color: #f3543f; }
+        .result-top {
+            height: 20px;
+            position: relative;
+            background-color: #f45540;
+        }
+        .result-top:after {
+            content: '';
+            position: absolute;
+            display: block;
+            left: -5%;
+            top: -150px;
+            width: 110%;
+            height: 300px;
+            border-radius: 50%;
+            background-color: #f45540;
+        }
+        .result-coin {
+            position: relative;
+            z-index: 2;
+            margin-top: 80px;
+        }
+        .btn-withdraw, .btn-down {
+            padding: .8rem 6rem;
+            border-radius: 10px;
+            background-color: #f45540;
+            color: #fff;
+            font-weight: 700;
+            border-width: 0;
+            -webkit-box-shadow:0 3px 1px #d6451b;
+            box-shadow:0 3px 1px #d6451b;
+        }
+        .btn-down {
+            padding: 1rem 4rem;
+        }
+        .btn-install {
+            padding: 1.2rem 0;
+            width: 288px;
+            background-color: #f6d964;
+            border: none;
+            color: #d9a300;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            border-radius: 10px;
+            -webkit-box-shadow:0 3px 1px #e6b70f;
+            box-shadow:0 3px 1px #e6b70f;
+        }
+        .out-pack {
+            position: relative;
+        }
+        .out-pack .money{
+            display: block;
+            width: 100%;
+            position: absolute;
+            top: 100px;
+            text-align: center;
+            color: #fff;
+        }
+        .step {
+            display: inline-block;
+            width: 21px;
+            height: 21px;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 21px;
+            color: #333;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 100%;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 10;
+            background-color: #000;
+            opacity: .8;
+            -webkit-animation-delay: 0s;
+            -webkit-animation-duration: 256ms;
+            -webkit-animation-name: m-out;
+            width: 120%;
+            height: 120%;
+        }
+        .modal-box {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 10;
+            margin: 0 auto;
+        }
+        .modal {
+            z-index: 11;
+            height: 100%;
+            width: 300px;
+            margin: 0 auto;
+            display: -webkit-box;
+            -webkit-box-align: center;
+            -webkit-box-pack: center;
+        }
+    </style>
+</head>
+<body class="box vertical">
+    <div class="ui-page page-home tac">
+        <div class="relative box vertical bac bpc mt24">
+            <div class="redpack tac">
+                <div>
+                    <img class="dib mt12" src="/static/w/images/share/pic_logo_font.fw.png" width="162" height="46">
+                </div>
+                <div>
+                    <img class="dib mt12" src="/static/w/images/share/pic_coin_2.fw.png" width="58" height="62">
+                </div>
+                <p class="fs-28 fc-white fw-b mt16">首次拆送5元</p>
+                <a class="btn btn-secondary btn-pack mt36">拆红包</a>
+            </div>
+            <p class="mt24 fc-gray">填写邀请码&nbsp<span class="fc-red fs-20 fw-b">123456</span>&nbsp再多送1元</p>
+        </div>
+    </div>
+    <div class="ui-page page-withdraw tac">
+        <div class="result-top"></div>
+        <img class="result-coin" src="/static/w/images/share/pic_coin_1.fw.png" alt="" width="82" height="85"/>
+        <p class="mt12 g4 fs-28">钱鹿的红包</p>
+        <p class="mt36 fs-18 g4"><span style="font-size: 50px; margin-right: 10px; ">5.00</span>元</p>
+        <p class="fs-12" style="color: #a8a8b7;">已存入APP，可直接提现</p>
+        <a class="btn btn-default btn-withdraw mt36">我要提现</a>
+        <p class="mt24 fc-gray">填写邀请码&nbsp<span class="fc-red fs-20 fw-b">123456</span>&nbsp再多送1元</p>
+    </div>
+    <div class="ui-page page-outer" style="width: 288px; margin: 0 auto;overflow: inherit;">
+        <div class="box bac mt36">
+            <img src="/static/w/images/share/pic_logo.fw.png" alt="" width="65" height="65"/>
+            <p class="ml12">你已成功扫描钱鹿锁屏安装包地址</p>
+        </div>
+        <div class="out-pack mt24">
+            <img src="/static/w/images/share/pic_redbag.fw.png" alt="" width="288" height="176"/>
+            <p class="money fs-28"><span style="font-size: 50px; margin-right: 10px; position: relative; top: 5px;">5.00</span>元</p>
+        </div>
+        <p class="mt16 g6 fs-14">点击安装后请返回手机桌面查看安装进度。成功安装后登录钱鹿锁屏，就可领取5元现金红包直接体现。</p>
+        <a class="btn btn-default btn-install mt36 pt24">如未安装成功，点此重新安装</a>
+    </div>
+    <div class="ui-page page-share ui-page-active fc-white" style="background-color: #47464b;">
+        <div class="tar">
+            <img class="mr12 dib" src="/static/w/images/share/line1.fw.png" alt="" width="97" height="164"/>
+        </div>
+        <div style="position: relative; width: 300px; margin: 0 auto; ">
+            <img style="position: absolute; right: 0; top: 170px;" src="/static/w/images/share/pic_02.png" width="116" height="115">
+            <p class="fc-white fs-20">点击右上角分享按钮，然后选择“在浏览器中打开”，下载安装钱鹿锁屏，就能顺利拿到<span style="color: #ffff99">5元现金红包，可直接提现。</span></p>
+            <img class="db" src="/static/w/images/share/line2.fw.png" alt="" width="37" height="54"/>
+            <div>
+                <span class="step mr8">1</span>点击右上角<img class="ml5 mr5" style="position: relative;top: 5px;" src="/static/w/images/share/pic_01.png" width="17" height="24">图标
+            </div>
+            <div class="mt12">
+                <span class="step mr8">2</span>选择在浏览器中打开
+            </div>
+            <img class="db" src="/static/w/images/share/line3.fw.png" alt="" width="47" height="70"/>
+            <div class="mt12">
+                <span class="step mr8">3</span>在打开的页面中下载
+            </div>
+            <div class="mt12">
+                <span class="step mr8">4</span>登录后领取红包，红包可直接提现
+            </div>
+            <img class="db hide" src="/static/w/images/share/line4.fw.png" alt="" width="15" height="56"/>
+        </div>
+
+        <div class="out-pack mt24">
+        </div>
+    </div>
+
+    <div class="share-box hide">
+        <div class="share">
+            <div class="share-slogen">
+                <img src="/static/w/images/open_font.png" alt="用浏览器打开"/>
+            </div>
+            <div class="share-bg">
+                <img src="/static/w/images/open_line.png" alt="用浏览器打开"/>
+            </div>
+        </div>
+    </div>
+    <div id="mbox-overlay" class="overlay hide"></div>
+    <div id="mbox-contain" class="modal-box hide">
+        <div id="mbox-modal" class="modal bottom">
+            <div class="pt24 pb24 p16 bgc-white round tac">
+                <p class="fs-20 g4 mt12">提现请在手机APP内进行</p>
+                <a class="btn btn-default btn-down mt24">下载钱鹿锁屏</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        var PD = {
+//            registerMoney   : '{{ data['registerMoney']}}',      // 注册送钱
+//            inviteMoney     : '{{ data['inviteMoney']}}',      // 邀请码送钱
+//            inviteNum       : '{{ data['inviteNum'] }}',  // 邀请码
+//            normalUrl       : '{{data['normalUrl']}}',   // 正常下载地址
+//            txUrl           : ''        // 应用包下载地址,为空，若在微信，则提示右上角打开
+
+            registerMoney   : '5',      // 注册送钱
+            inviteMoney     : '1',      // 邀请码送钱
+            inviteNum       : '1111',  // 邀请码
+            normalUrl       : 'http://www.baidu.com',   // 正常下载地址
+            txUrl           : ''        // 应用包下载地址,为空，若在微信，则提示右上角打开
+        }
+
+
+        window.onload = function() {
+            var btn             = document.getElementById('btn-download'),
+                inviteMoney     = document.getElementById('invite-money'),
+                registerMoney   = document.getElementById('register-money'),
+                iswx            = /MicroMessenger/i.test(navigator.userAgent),
+                isandroid       = /android/i.test(navigator.userAgent),
+                isios           = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+
+            if (isios) {
+                alert('ios版本正在开发中，敬请期待');
+                return false;
+            }
+            else {
+                build();
+            }
+
+            document.getElementById('invite-num').innerHTML = PD.inviteNum;
+            btn.setAttribute('href', PD.normalUrl);
+
+            btn.addEventListener('click', function(e) {
+                if(isandroid && iswx) {
+                    if(NP.txUrl) {
+                        btn.setAttribute('href', PD.txUrl);
+                        return true;
+                    }
+                    removeClass(document.querySelector('.share-box'), 'hide');
+                }
+                else if(isandroid) {
+                    return true;
+                }
+                else {
+                     window.location.href = 'https://qiandeer.com';
+                }
+
+                e.stopPropagation();
+                e.preventDefault();
+            }, false);
+        }
+
+        // 构建
+        function build () {
+            var invite = document.querySelectorAll('.invite-num');
+
+            for ( var i = 0, len = invite.length; i < len ; i++ ) {
+                invite[i].innerHTML = PD.inviteMoney;
+            }
+        }
+
+        function removeClass(obj, cls){
+            var obj_class = ' '+obj.className+' ',
+                obj_class = obj_class.replace(/(\s+)/gi, ' '),
+                removed = obj_class.replace(' '+cls+' ', ' ');
+
+            removed = removed.replace(/(^\s+)|(\s+$)/g, '');
+            obj.className = removed;
+        }
+    </script>
+</body>
+</html>
+
+
+
+

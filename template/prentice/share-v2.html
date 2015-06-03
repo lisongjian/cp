@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cmn-Hans">
+    <meta charset="UTF-8">
+    <title>收到红包</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- 360用GCF渲染 -->
+    <meta name="renderer" content="webkit">
+    <!-- 优先使用最新IE内核,chrome内核 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <!-- 禁止百度转码 -->
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="stylesheet" href="http://w.qiandeer.com/qd/static/lock/assets/global.css"/>
+    <style>
+        html, body {
+            font-size: 62.5%;
+            height: 100%;
+            min-height: 480px;
+            width: 100%;
+            background-color: #ececfb;
+            font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, STHeiTi, sans-serif
+        }
+
+        body {
+            font-size: 1.6rem;
+        }
+
+        @media screen and (max-height: 480px) {
+            body {
+                height: 480px
+            }
+
+        }
+        @media screen and (orientation: landscape) {
+        }
+
+        /* 共用 */
+        .fc-gray { color: #757584; }
+        .g4 { color: #444; }
+        .fc-red { color: #f3543f; }
+
+        .page-withdraw { display: block; }
+        .ui-page { display: none; height: 100%; overflow: hidden; }
+        .ui-page-active { display: -webkit-box; }
+        .page-withdraw.ui-page-active { display: block; }
+        .page-share.ui-page-active { display: block; }
+        .page-share { position: absolute; z-index: 3; top: 0; width: 100%; background-color: rgba(71, 70, 75, 0.91); }
+        .page-outer.ui-page-active { display: block; }
+
+        .redpack{width:275px;height:329px;border-radius:10px;background:url("http://w.qiandeer.com/qd/static/lock/images/share/pic_redbag_big.fw.png") no-repeat 0 0 #f45540;background-size:275px 329px}.btn-pack{padding:.8rem 5rem;border-radius:30px;background-color:#ffd71c;color:#f45540;font-weight:700;-webkit-box-shadow:0 3px 1px #f2bc00;box-shadow:0 3px 1px #f2bc00}.btn-pack:active{position:relative;top:2px;-webkit-box-shadow:0 1px 1px #f2bc00;box-shadow:0 1px 1px #f2bc00}.result-top{height:20px;position:relative;background-color:#f45540}.result-top:after{content:'';position:absolute;display:block;left:-5%;top:-150px;width:110%;height:300px;border-radius:50%;background-color:#f45540}.result-coin{position:relative;z-index:2;margin-top:80px}.btn-withdraw,.btn-down{padding:.8rem 6rem;border-radius:10px;background-color:#f45540;color:#fff;font-weight:700;border-width:0;-webkit-box-shadow:0 3px 1px #d6451b;box-shadow:0 3px 1px #d6451b}.btn-down{padding:1rem 4rem}.btn-install{padding:1.2rem 0;width:288px;background-color:#f6d964;border:none;color:#d9a300;-webkit-box-sizing:border-box;box-sizing:border-box;border-radius:10px;-webkit-box-shadow:0 3px 1px #e6b70f;box-shadow:0 3px 1px #e6b70f}.out-pack{position:relative}.out-pack .money{display:block;width:100%;position:absolute;top:100px;text-align:center;color:#fff}.step{display:inline-block;width:21px;height:21px;font-size:14px;font-weight:700;line-height:21px;color:#333;text-align:center;background-color:#fff;border-radius:100%}.overlay{position:fixed;top:0;right:0;bottom:0;left:0;z-index:10;background-color:#000;opacity:.8;-webkit-animation-delay:0s;-webkit-animation-duration:256ms;-webkit-animation-name:m-out;width:120%;height:120%}.modal-box{position:fixed;top:0;right:0;bottom:0;left:0;z-index:10;margin:0 auto}.modal{z-index:11;height:100%;width:300px;margin:0 auto;display:-webkit-box;-webkit-box-align:center;-webkit-box-pack:center}
+    </style>
+</head>
+<body class="page box vertical">
+<div class="ui-page page-home tac box bpc">
+    <div class="flex1 relative box vertical bac bpc">
+        <div class="redpack tac">
+            <div>
+                <img class="dib mt12" src="http://w.qiandeer.com/qd/static/lock/images/share/pic_logo_font.fw.png" width="162" height="46">
+            </div>
+            <div>
+                <img class="dib mt12" src="http://w.qiandeer.com/qd/static/lock/images/share/pic_coin_2.fw.png" width="58" height="62">
+            </div>
+            <p class="fs-28 fc-white fw-b mt16">首次拆送<span class="register-money"></span>元</p>
+            <a class="btn btn-secondary btn-pack mt36" data-ck="1" href="javascript:void(0);">拆红包</a>
+        </div>
+        <p class="mt24 fc-gray">填写邀请码&nbsp<span class="invite-num fc-red fs-20 fw-b"></span>&nbsp再多送1元</p>
+    </div>
+</div>
+<div class="ui-page page-withdraw tac">
+    <div class="result-top"></div>
+    <img class="result-coin" src="http://w.qiandeer.com/qd/static/lock/images/share/pic_coin_1.fw.png" alt="" width="82" height="85"/>
+    <p class="mt12 g4 fs-28">钱鹿的红包</p>
+    <p class="mt36 fs-18 g4"><span style="font-size: 50px; margin-right: 10px; ">5.00</span>元</p>
+    <p class="fs-12" style="color: #a8a8b7;">已存入APP，可直接提现</p>
+    <a class="btn btn-default btn-withdraw mt36" data-ck="2">我要提现</a>
+    <p class="mt24 fc-gray">填写邀请码&nbsp<span class="invite-num fc-red fs-20 fw-b"></span>&nbsp再多送1元</p>
+</div>
+<div class="ui-page page-outer" style="width: 288px; margin: 0 auto;overflow: inherit;">
+    <div class="box bac pt32">
+        <img src="http://w.qiandeer.com/qd/static/lock/images/share/pic_logo.fw.png" alt="" width="65" height="65"/>
+        <p class="ml12 fs-14">你已成功扫描钱鹿锁屏安装包地址</p>
+    </div>
+    <div class="out-pack mt24">
+        <img src="http://w.qiandeer.com/qd/static/lock/images/share/pic_redbag.fw.png" alt="" width="288" height="176"/>
+        <p class="money fs-28"><span style="font-size: 50px; margin-right: 10px; position: relative; top: 5px;">5.00</span>元</p>
+    </div>
+    <p class="mt16 g6 fs-14">点击安装后请返回手机桌面查看安装进度。成功安装后登录钱鹿锁屏，就可领取5元现金红包直接体现。</p>
+    <a class="btn btn-default btn-install mt36 pt24" data-ck="4" href="javascript:void(0);">如未安装成功，点此重新安装</a>
+</div>
+<div class="ui-page page-tip">
+    <div id="mbox-overlay" class="overlay"></div>
+    <div id="mbox-contain" class="modal-box">
+        <div id="mbox-modal" class="modal bottom">
+            <div class="pt24 pb24 p16 bgc-white round tac">
+                <p class="fs-20 g4 mt12">提现请在手机APP内进行</p>
+                <a class="btn btn-default btn-down mt24" data-ck="3">下载钱鹿锁屏</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ui-page page-share fc-white">
+    <div class="tar">
+        <img class="mr12 dib" src="http://w.qiandeer.com/qd/static/lock/images/share/line1.fw.png" alt="" width="97" height="164"/>
+    </div>
+    <div style="position: relative; width: 300px; margin: 0 auto; ">
+        <img style="position: absolute; right: 0; top: 170px;" src="http://w.qiandeer.com/qd/static/lock/images/share/pic_02.png" width="116" height="115">
+        <p class="fc-white fs-20">点击右上角分享按钮，然后选择“在浏览器中打开”，下载安装钱鹿锁屏，就能顺利拿到<span style="color: #ffff99">5元现金红包，可直接提现。</span></p>
+        <img class="db" src="http://w.qiandeer.com/qd/static/lock/images/share/line2.fw.png" alt="" width="37" height="54"/>
+        <div>
+            <span class="step mr8">1</span>点击右上角<img class="ml5 mr5" style="position: relative;top: 5px;" src="http://w.qiandeer.com/qd/static/lock/images/share/pic_01.png" width="17" height="24">图标
+        </div>
+        <div class="mt12">
+            <span class="step mr8">2</span>选择在浏览器中打开
+        </div>
+        <img class="db" src="http://w.qiandeer.com/qd/static/lock/images/share/line3.fw.png" alt="" width="47" height="70"/>
+        <div class="mt12">
+            <span class="step mr8">3</span>在打开的页面中下载
+        </div>
+        <div class="mt12">
+            <span class="step mr8">4</span>登录后领取红包，红包可直接提现
+        </div>
+    </div>
+</div>
+
+
+<script src="http://w.qiandeer.com/qd/static/lock/assets/zepto.js"></script>
+<script>
+    var PD = {
+            registerMoney   : '{{ data['registerMoney']}}',      // 注册送钱
+            inviteMoney     : '{{ data['inviteMoney']}}',      // 邀请码送钱
+            inviteNum       : '{{ data['inviteNum'] }}',  // 邀请码
+            normalUrl       : '{{data['normalUrl']}}',   // 正常下载地址
+            txUrl           : ''        // 应用包下载地址,为空，若在微信，则提示右上角打开
+
+//        registerMoney   : '5',      // 注册送钱
+//        inviteMoney     : '1',      // 邀请码送钱
+//        inviteNum       : '1111',  // 邀请码
+//        normalUrl       : 'http://storage.pgyer.com/9/a/f/9/f/9af9f64d714dd23c19f618e6c19c359a.apk',   // 正常下载地址
+//        txUrl           : ''        // 应用包下载地址,为空，若在微信，则提示右上角打开
+    }
+
+    /**
+     *  =get request  获取url参数集合
+     *
+     *  @param     {string}  param name
+     *  @return    {object}  参数集合
+     */
+    function getRequest () {
+        var url = window.location.search,  // 获取url中"?"后面的字符串
+                i = 0,
+                args, arg,
+                back = new Object();
+
+        if (url == '') return 0;
+
+        if (url.indexOf('?') != -1) {
+            args = url.substr(1).split('&');
+
+            for (; i < args.length; i++) {
+                arg = args[i].split('=');
+                back[arg[0]] = arg[1];
+            }
+            ;
+        }
+
+        if (arguments[0]) return back[arguments[0]];
+        return back;
+    }
+
+    var     iswx        = /MicroMessenger/i.test(navigator.userAgent),
+            iswb        = /weibo/i.test(navigator.userAgent) || /TencentMicro/i.test(navigator.userAgent) ,
+            isqq        = /QQ/i.test(navigator.userAgent),
+            isandroid   = /android/i.test(navigator.userAgent),
+            isios       = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+            params      = getRequest();
+
+    window.onload = function() {
+        var btn = document.getElementById('btn-download');
+
+        if (isios) {
+            window.location.href = 'https://qiandeer.com';
+            return false;
+        }
+        else {
+            build();
+            events();
+        }
+
+        return false;
+    }
+
+    // 构建
+    function build () {
+        var invite = document.querySelectorAll('.invite-num'),
+            register = document.querySelectorAll('.register-money');
+
+        // 填充邀请码
+        for ( var i = 0, len = invite.length; i < len ; i++ ) {
+            invite[i].innerHTML = PD.inviteNum;
+        }
+
+        // 填充赠送金额
+        for ( var i = 0, len = register.length; i < len ; i++ ) {
+            register[i].innerHTML = PD.registerMoney;
+        }
+        // 来自其他平台跳到浏览器,自动下载
+        if (params['fromother']) {
+            if (iswx || iswb || isqq) {
+                document.querySelector('.page-home').classList.add('ui-page-active');
+            }
+            else {
+                document.querySelector('.page-outer').classList.add('ui-page-active');
+                setTimeout(function() {
+                    window.location.href = PD.normalUrl;
+                }, 1000);
+            }
+        }
+        else {
+            document.querySelector('.page-withdraw').classList.add('ui-page-active');
+        }
+    }
+
+    // 事件处理
+    function events() {
+
+        $('.page').on('tap', function(e) {
+            var e = e || window.event,
+                target = e.target,
+                $this = $(target),
+                ck = parseInt( $this.data('ck') || 0 );
+
+            switch (ck) {
+                // [1]　拆红包
+                case 1:
+                    $('.ui-page').removeClass('ui-page-active');
+                    $('.page-withdraw').addClass('ui-page-active').css({'display': 'block'});
+
+                    return false;
+                break;
+
+                // [2] 提示提现
+                case 2:
+                    $('.ui-page').removeClass('ui-page-active');
+                    $('.page-tip').addClass('ui-page-active');
+
+                    return false;
+                break;
+
+                // [3] 提示外部打开
+                case 3:
+                    if(params['fromother']) {
+                        if (iswx) {
+                            if(PD.txUrl) {
+                                window.location.href = PD.txUrl;
+                            }
+                            else {
+                                $('.ui-page').removeClass('ui-page-active');
+                                $('.page-share').addClass('ui-page-active');
+                            }
+                        }
+                        else {
+                            window.location.href = PD.normalUrl;
+                        }
+                    }
+                    else {
+                        window.location.href = PD.normalUrl;
+                    }
+
+
+                    return false;
+                    break;
+
+                // 下载
+                case 4:
+                    window.location.href = PD.normalUrl;
+                    return false;
+                break;
+
+                default :
+                    return false;
+            }
+
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        });
+    }
+
+    function removeClass(obj, cls){
+        var obj_class = ' '+obj.className+' ',
+                obj_class = obj_class.replace(/(\s+)/gi, ' '),
+                removed = obj_class.replace(' '+cls+' ', ' ');
+
+        removed = removed.replace(/(^\s+)|(\s+$)/g, '');
+        obj.className = removed;
+    }
+</script>
+</body>
+</html>
+
+
+
+
